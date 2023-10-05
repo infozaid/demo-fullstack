@@ -68,7 +68,6 @@
 							<from>
 								<image>openjdk:17</image>
 							</from>
-
 							<container>
 								<ports>
 									<port>8080</port>
@@ -86,7 +85,7 @@
 									</to>
 								</configuration>
 								<goals>
-									<goal>build</goal>
+									<goal>dockerBuild</goal>
 								</goals>
 							</execution>
 							<execution>
@@ -98,7 +97,7 @@
 									</to>
 								</configuration>
 								<goals>
-									<goal>build</goal>
+									<goal>dockerBuild</goal>
 								</goals>
 							</execution>
 						</executions>
