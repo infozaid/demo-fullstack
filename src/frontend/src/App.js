@@ -2,16 +2,17 @@
 import { useState, useEffect } from 'react'
 import './App.css';
 import { getAllsStudents } from './client';
-import { Breadcrumb, Layout, Menu, theme ,Table,Spin,Empty } from 'antd';
+import { Breadcrumb, Layout, Menu, theme ,Table,Spin,Empty,Button } from 'antd';
 
-
+import StudentDrawerForm from "./StudentDrawerForm"; 
 import {
     DesktopOutlined,
     FileOutlined,
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
-    LoadingOutlined
+    LoadingOutlined,
+    PlusOutlined
 } from '@ant-design/icons';
 
 
@@ -75,6 +76,7 @@ function App() {
     const [students, setStudents] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
     const [fetching,setFetching] = useState(true);
+    const [showDrawer,setShowDrawer] = useState(false);  
 
     const {
         token: { colorBgContainer },
@@ -104,14 +106,26 @@ function App() {
             return <Empty />;
         }
 
-        return <Table
+        return <>
+        <StudentDrawerForm
+         showDrawer={showDrawer}
+         setShowDrawer={setShowDrawer}
+        />
+        <Table
             columns={columns}
             dataSource={students}
             bordered
-            title={() => 'Student'}
+            title={() => <Button
+                           onClick={()=>setShowDrawer(!showDrawer)} 
+                           type="primary" 
+                           icon={<PlusOutlined />} 
+                           size="small">
+               Add New Student
+            </Button>}
             pagination={{ pageSize: 50, }}
             scroll={{ y: 240, }}
         />
+        </>
     }
 
 

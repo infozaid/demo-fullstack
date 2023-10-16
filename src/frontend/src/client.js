@@ -11,5 +11,5 @@ const checkStatus = response =>{
 }
 
 export const getAllsStudents = () =>
-   fetch("api/v1/student")
+   fetch("api/v1/students")
    .then(checkStatus);
