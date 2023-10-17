@@ -1,10 +1,11 @@
 //import logo from './logo.svg';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import './App.css';
 import { getAllsStudents } from './client';
 import { Breadcrumb, Layout, Menu, theme ,Table,Spin,Empty,Button } from 'antd';
 
 import StudentDrawerForm from "./StudentDrawerForm"; 
+import {addNewStudent} from './client';
 import {
     DesktopOutlined,
     FileOutlined,
@@ -110,6 +111,7 @@ function App() {
         <StudentDrawerForm
          showDrawer={showDrawer}
          setShowDrawer={setShowDrawer}
+         fetchStudents={fetchStudents}
         />
         <Table
             columns={columns}
@@ -120,8 +122,8 @@ function App() {
                            type="primary" 
                            icon={<PlusOutlined />} 
                            size="small">
-               Add New Student
-            </Button>}
+                          Add New Student
+                        </Button>}
             pagination={{ pageSize: 50, }}
             scroll={{ y: 240, }}
         />
