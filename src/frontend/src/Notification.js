@@ -16,4 +16,7 @@ const openNotificationWithIcon = (type, message,description) => {
     
       export const warningNotification = (message,description) =>
       openNotificationWithIcon('warning',message,description);
+
+      export const deleteNotification = (message,description) =>
+      openNotificationWithIcon('delete',message,description);
     

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { getAllsStudents } from './client';
-import { Breadcrumb, Layout, Menu, theme ,Table,Spin,Empty,Button,Badge,Tag,Avatar } from 'antd';
+import { Breadcrumb, Layout, Menu, theme ,Table,Spin,Empty,Button,Badge,Tag,Avatar,Radio,Popconfirm,message } from 'antd';
 
 import StudentDrawerForm from "./StudentDrawerForm"; 
 import {addNewStudent} from './client';
@@ -57,6 +57,16 @@ const items = [
 ];
 
 
+const confirm = (student) => {
+    console.log(student);
+    message.success('Click on Yes' ${student.name});
+  };
+
+  const cancel = (e) => {
+    console.log(e);
+    message.error('Click on No');
+  };
+
 
 
 const columns = [
@@ -87,6 +97,23 @@ const columns = [
         title: 'Gender',
         dataIndex: 'gender',
         key: 'gender',
+    },
+
+    {
+        title: 'Action',
+        dataIndex: 'action',
+        render:(student) => <Popconfirm
+        title="Delete the task"
+        description="Are you sure to delete?"
+        onConfirm={confirm}
+        onCancel={cancel}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Button  onClick={deleteItem}>Delete</Button>
+        <Button>Edit</Button>
+      </Popconfirm>
+         
     }
 ];
 
