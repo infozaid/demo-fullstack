@@ -5,7 +5,8 @@ import { getAllsStudents } from './client';
 import { Breadcrumb, Layout, Menu, theme ,Table,Spin,Empty,Button,Badge,Tag,Avatar,Radio,Popconfirm,message } from 'antd';
 
 import StudentDrawerForm from "./StudentDrawerForm"; 
-import {addNewStudent} from './client';
+import {deleteStudent} from './client';
+import {successNotification,errorNotification} from './Notification';
 import {
     DesktopOutlined,
     FileOutlined,
@@ -57,19 +58,20 @@ const items = [
 ];
 
 
-const confirm = (student) => {
-    console.log(student);
-    message.success('Click on Yes' ${student.name});
-  };
-
-  const cancel = (e) => {
-    console.log(e);
-    message.error('Click on No');
-  };
 
 
+  const removeStudent = (studentId,callback) => {
 
-const columns = [
+    deleteStudent(studentId).then(()=>{
+        successNotification("student deleted",`student with ${studentId} was deleted`);
+        callback();
+    })
+
+  } 
+
+
+
+const columns = fetchStudents => [
 
     {
         title:'',
@@ -100,21 +102,23 @@ const columns = [
     },
 
     {
-        title: 'Action',
-        dataIndex: 'action',
-        render:(student) => <Popconfirm
-        title="Delete the task"
-        description="Are you sure to delete?"
-        onConfirm={confirm}
-        onCancel={cancel}
-        okText="Yes"
-        cancelText="No"
-      >
-        <Button  onClick={deleteItem}>Delete</Button>
-        <Button>Edit</Button>
+        title: 'Actions',
+        key: 'actions',
+        render:(text,student) => 
+        <Radio.Group>
+        <Popconfirm
+             placement='topRight'
+             title={`Are you sure to delete? ${student.name}`}
+             onConfirm={()=> removeStudent(student.id,fetchStudents)}
+             okText='Yes'
+             cancelText='No'>
+        <Radio.Button value="small">Delete</Radio.Button>
       </Popconfirm>
-         
+      <Radio.Button value="small">Edit</Radio.Button>
+      </Radio.Group>
+    
     }
+    
 ];
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -139,7 +143,13 @@ function App() {
                 console.log(data);
                 setStudents(data);
                 setFetching(false);
-            })
+            }).catch(err =>{
+                 console.log(err.response);
+                 err.response.json().then(res=>{
+                    console.log(res);
+                    errorNotification("There was an issue",`${res.message} [${res.status}] [${res.error}]`);
+                });
+            }).finally(()=>setFetching(false));
 
     useEffect(() => {
         console.log("Component is mounted");
@@ -164,7 +174,7 @@ function App() {
          fetchStudents={fetchStudents}
         />
         <Table
-            columns={columns}
+            columns={columns(fetchStudents)}
             dataSource={students}
             bordered
             title={() => 
