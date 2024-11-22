@@ -13,13 +13,14 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
+
 .site-layout .site-layout-background {
   background: #fff;
 }
 
 .site-badge-count-4 .ant-badge-count {
-  margin-left: 15px;
-  color: #0f0e0e;
+  margin-left: 10px;
+  color: #999;
   background-color: #fff;
   box-shadow: 0 0 0 1px #d9d9d9 inset;
 }
@@ -49,6 +50,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

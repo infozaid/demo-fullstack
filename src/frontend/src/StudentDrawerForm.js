@@ -1,49 +1,68 @@
 import React, { useState } from 'react';
-import { PlusOutlined,LoadingOutlined } from '@ant-design/icons';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Spin } from 'antd';
-import {addNewStudent} from './client';
-import {successNotification,errorNotification} from './Notification';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Col, Drawer, Form, Input, Row, Select, Spin } from 'antd';
+import { addNewStudent } from './client';
+import { successNotification, errorNotification } from './Notification';
 
 const { Option } = Select;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 
-function StudentDrawerForm({showDrawer,setShowDrawer,fetchStudents}) {
+function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
   //const [open, setOpen] = useState(false);
   const onClose = () => setShowDrawer(false);
-  const [submitting,setSubmitting]= useState(false);
-//   const showDrawer = () => {
-//     setOpen(true);
-//   };
-//   const onClose = () => {
-//     setOpen(false);
-//   };
+  const [submitting, setSubmitting] = useState(false);
+  //   const showDrawer = () => {
+  //     setOpen(true);
+  //   };
+  //   const onClose = () => {
+  //     setOpen(false);
+  //   };
 
-  const onFinish = student =>{  
-       setSubmitting(true);
-       console.log(JSON.stringify(student,null,2))
-       addNewStudent(student).then(()=>{
-                            console.log("student added"); 
-                            onClose();
-                            successNotification(
-                                "Student Successfully added",
-                                 `${student.name} was added to the system`)
-                            fetchStudents();
-                        }).catch(err =>{
-                          console.log(err.response);
-                          err.response.json().then(res=>{
-                             console.log(res);
-                             errorNotification("There was an issue",`${res.message} [${res.status}] [${res.error}]`,"bottomLeft");
-                         });
-                        }).finally(()=>{
-                            setSubmitting(false);
-                        });
+  const onFinish = student => {
+    setSubmitting(true);
+    console.log(JSON.stringify(student, null, 2))
+    addNewStudent(student).then(() => {
+      console.log("student added");
+      onClose();
+      successNotification(
+        "Student Successfully added",
+        `${student.name} was added to the system`);
+      fetchStudents();
+    }).catch(err => {
+      console.log(err.response);
+      err.response.json().then(res => {
+        console.log(res);
+        errorNotification(
+          "There was an issue",
+          `${res.message} [${res.status}] [${res.error}]`,
+          "bottomLeft");
+      });
+    }).finally(() => {
+      setSubmitting(false);
+    })
+    //  addNewStudent(student).then(()=>{
+    //                       console.log("student added"); 
+    //                       onClose();
+    //                       successNotification(
+    //                           "Student Successfully added",
+    //                            `${student.name} was added to the system`)
+    //                       fetchStudents();
+    //                   }).catch(err =>{
+    //                     console.log(err.response);
+    //                     err.response.json().then(res=>{
+    //                        console.log(res);
+    //                        errorNotification("There was an issue",`${res.message} [${res.status}] [${res.error}]`,"bottomLeft");
+    //                    });
+    //                   }).finally(()=>{
+    //                       setSubmitting(false);
+    //                   });
   };
 
-  
-  const onFinishFailed = errorInfo =>{
-    alert(JSON.stringify(errorInfo,null,2));
-};
+
+  const onFinishFailed = errorInfo => {
+    alert(JSON.stringify(errorInfo, null, 2));
+  };
 
 
   return (
@@ -61,19 +80,19 @@ function StudentDrawerForm({showDrawer,setShowDrawer,fetchStudents}) {
             paddingBottom: 80,
           },
         }}
-        // extra={
-        //   <Space>
-        //     <Button onClick={onClose}>Cancel</Button>
-        //     <Button onClick={onClose} type="primary">
-        //       Submit
-        //     </Button>
-        //   </Space>
-        // }
+      // extra={
+      //   <Space>
+      //     <Button onClick={onClose}>Cancel</Button>
+      //     <Button onClick={onClose} type="primary">
+      //       Submit
+      //     </Button>
+      //   </Space>
+      // }
       >
-        <Form layout="vertical" 
-              onFinishFailed={onFinishFailed}
-              onFinish={onFinish}
-              hideRequiredMark>
+        <Form layout="vertical"
+          onFinishFailed={onFinishFailed}
+          onFinish={onFinish}
+          hideRequiredMark>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
@@ -90,7 +109,7 @@ function StudentDrawerForm({showDrawer,setShowDrawer,fetchStudents}) {
               </Form.Item>
             </Col>
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="email"
                 label="Email"
                 rules={[
@@ -182,14 +201,14 @@ function StudentDrawerForm({showDrawer,setShowDrawer,fetchStudents}) {
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item>
-                    <Button  type="primary" htmlType="submit">
-                       Submit
-                   </Button>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
               </Form.Item>
             </Col>
           </Row>
           <Row>
-               {submitting && <Spin indicator={antIcon} />}
+            {submitting && <Spin indicator={antIcon} />}
           </Row>
         </Form>
       </Drawer>

@@ -1,5 +1,6 @@
 package com.example.demo.student;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +23,19 @@ public class StudentController {
                         "usman@gmail.com",
                         Gender.MALE),
 
-        new Student(1L,
+        new Student(2L,
                 "Salman",
                 "salman@gmail.com",
                 Gender.MALE)
-        );*/
+        );
+
+        return studentList;*/
 
         return studentService.getAllStudents();
-
     }
 
     @PostMapping
-    public void addStudent(@RequestBody Student student){
+    public void addStudent(@Valid @RequestBody Student student){
         studentService.addStudent(student);
     }
 
