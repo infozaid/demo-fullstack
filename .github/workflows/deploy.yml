@@ -13,7 +13,7 @@ env:
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: postgres
   # Java
-  JAVA_VERSION: 1.15
+  JAVA_VERSION: 17
   # DockerHub
   DOCKER_HUB_USERNAME: infozaid
   # AWS & Elastic Bean Stalk
