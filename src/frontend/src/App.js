@@ -250,7 +250,7 @@ function App() {
               rel="noreferrer"
               target="_blank"
               href="https://www.bestbuy.com/site/computers-pcs/laptop-computers/abcat0502000.c?id=abcat0502000">
-              Click here to buy tech.
+              Click here to buy latest tech.
             </a>
           </Divider>
         </Footer>
