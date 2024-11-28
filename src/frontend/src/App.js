@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { deleteStudent, getAllStudents } from './client';
-import { Breadcrumb, Empty, Layout, Menu, Spin, theme, Button, Badge, Tag, Avatar, Space, Popconfirm, Radio } from 'antd';
+import { Breadcrumb, Layout, Menu, Spin, theme, Button, Badge, Tag, Avatar, Popconfirm, Radio, Divider } from 'antd';
 import {
   DesktopOutlined,
   FileOutlined,
@@ -13,7 +13,6 @@ import {
 import './App.css';
 import { Table } from 'antd';
 import StudentDrawerForm from './StudentDrawerForm';
-import { render } from '@testing-library/react';
 import { errorNotification, successNotification } from './Notification';
 
 
@@ -244,12 +243,16 @@ function App() {
             {renderStudents()}
           </div>
         </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
+        <Footer style={{ textAlign: 'center', }}>
           Created By ZAID 2024.
+          <Divider>
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://www.bestbuy.com/site/computers-pcs/laptop-computers/abcat0502000.c?id=abcat0502000">
+              Click here to buy tech.
+            </a>
+          </Divider>
         </Footer>
       </Layout>
     </Layout>
