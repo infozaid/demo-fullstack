@@ -294,7 +294,7 @@
 									</to>
 								</configuration>
 								<goals>
-									<goal>dockerBuild</goal>
+									<goal>build</goal>
 								</goals>
 							</execution>
 							<execution>
@@ -306,7 +306,7 @@
 									</to>
 								</configuration>
 								<goals>
-									<goal>dockerBuild</goal>
+									<goal>build</goal>
 								</goals>
 							</execution>
 						</executions>
