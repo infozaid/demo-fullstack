@@ -18,8 +18,8 @@ env:
   DOCKER_HUB_USERNAME: infozaid
   # AWS & Elastic Bean Stalk
   AWS_REGION: us-east-1
-  EB_ENVIRONMENT_NAME: React-fullstack-env
-  EB_APPLICATION_NAME: react-fullstack
+  EB_ENVIRONMENT_NAME: React-cart-env
+  EB_APPLICATION_NAME: react-cart
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
 
 jobs:

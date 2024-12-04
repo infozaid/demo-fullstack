@@ -7,7 +7,7 @@ services:
     restart: "always"
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:postgresql://awseb-e-es32pmm6wf-stack-awsebrdsdatabase-ijw161k0zzmz.c3il0a7cmawb.us-east-1.rds.amazonaws.com:5432/infozaid
+      SPRING_DATASOURCE_URL: jdbc:postgresql://awseb-e-wzambwnnj5-stack-awsebrdsdatabase-aytxh7raqyfw.c3il0a7cmawb.us-east-1.rds.amazonaws.com:5432/infozaid
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
