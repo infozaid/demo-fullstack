@@ -45,6 +45,9 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: master
 
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
