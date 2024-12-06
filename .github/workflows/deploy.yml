@@ -77,8 +77,11 @@ jobs:
         run: |
             echo "Listing current directory contents..."
             ls -al
-            echo "Listing backend directory contents..."
-            ls -al backend
+
+      - name: Debug Dockerfile
+        run: |
+          echo "Checking for Dockerfile..."
+          find . -name Dockerfile
       
 
       - uses: 8398a7/action-slack@v3
