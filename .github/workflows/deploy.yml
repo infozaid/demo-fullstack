@@ -93,6 +93,16 @@ jobs:
           text: ':elasticbeanstalk: :aws: Deployment started... :grimacing: :crossed_fingers:'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Verify Docker Image
+        run: |
+            echo "Checking for Docker image..."
+            docker pull infozaid/springboot-react-fullstack:${{steps.build-number.outputs.BUILD_NUMBER}}
+            docker images | grep "infozaid/springboot-react-fullstack"
+
+      - name: Debug Deployment Package
+        run: cat elasticbeanstalk/docker-compose.yml
+
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@ebe3476a4ce991d54336935e75e78dd9d86f9408
         with:
