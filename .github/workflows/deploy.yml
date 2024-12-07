@@ -13,7 +13,7 @@ env:
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: postgres
   # Java
-  JAVA_VERSION: 17
+  JAVA_VERSION: 17.0
   # DockerHub
   DOCKER_HUB_USERNAME: infozaid
   # AWS & Elastic Bean Stalk
@@ -45,14 +45,6 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: master
-
-      - name: Ensure Latest Code
-        run: |
-           git fetch origin master
-           git reset --hard origin/master
 
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
@@ -71,24 +63,15 @@ jobs:
 
       - name: Maven Clean Package and Push to Dockerhub
         run: |
-          mvn --no-transfer-progress clean package  -P build-frontend  -P jib-push-to-dockerhub  -D app.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}}
-
-      - name: Debug Dockerfile Location
-        run: |
-            echo "Listing current directory contents..."
-            ls -al
-
-      - name: Debug Dockerfile
-        run: |
-          echo "Checking for Dockerfile..."
-          find . -name Dockerfile
-      
-
+          ./mvnw --no-transfer-progress clean package \
+            -P build-frontend \
+            -P jib-push-to-dockerhub \
+              -Dapp.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}}
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-          text: ':white_check_mark: pushed infozaid/springboot-react-fullstack:${{steps.build-number.outputs.BUILD_NUMBER}} to docker hub... https://hub.docker.com/repository/docker/infozaid/springboot-react-fullstack'
+          text: ':white_check_mark: pushed amigoscode/springboot-react-fullstack:${{steps.build-number.outputs.BUILD_NUMBER}} to docker hub... https://hub.docker.com/repository/docker/amigoscode/springboot-react-fullstack'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Update and commit app version in docker-compose.yaml
@@ -126,7 +109,7 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-          text: ':tada: :arrow_right: http://react-fullstack-env.eba-pxdtij3g.us-east-1.elasticbeanstalk.com'
+          text: ':tada: :arrow_right: http://springbootreactfullstack-env.eba-3imjbkem.eu-west-1.elasticbeanstalk.com'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
