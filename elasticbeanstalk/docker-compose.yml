@@ -1,15 +1,9 @@
-
+version: "3.8"
 services:
   backend:
-    image: "infozaid/springboot-react-fullstack:6.12.2024.12.18.52"
+    image: "infozaid/springboot-react-fullstack:10.8.2021.14.31.42"
     ports:
       - "80:8080"
     restart: "always"
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:postgresql://awseb-e-wzambwnnj5-stack-awsebrdsdatabase-aytxh7raqyfw.c3il0a7cmawb.us-east-1.rds.amazonaws.com:5432/infozaid
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL-AUTO: update
-      SPRING_JPA_SHOW-SQL: true
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
