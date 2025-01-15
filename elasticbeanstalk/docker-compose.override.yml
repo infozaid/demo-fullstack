@@ -1,9 +1,9 @@
-version: "3.8"
-services:
-  backend:
-    image: "infozaid/springboot-react-fullstack:7.12.2024.10.10.14"
-    ports:
-      - "80:8080"
-    restart: "always"
-    environment:
-      SPRING_PROFILES_ACTIVE: dev
+#version: "3.8"
+#services:
+#  backend:
+#    image: "infozaid/springboot-react-fullstack:7.12.2024.10.10.14"
+#    ports:
+#      - "80:8080"
+#    restart: "always"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: dev
