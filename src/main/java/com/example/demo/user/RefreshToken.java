@@ -1,6 +1,8 @@
 package com.example.demo.user;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
+
 import java.time.Instant;
 
 @Entity(name = "refreshtoken")
