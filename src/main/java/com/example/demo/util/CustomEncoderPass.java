@@ -3,7 +3,9 @@ package com.example.demo.util;
 import com.password4j.Hash;
 import com.password4j.Password;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomEncoderPass implements PasswordEncoder {
 
     private final String salt = "moneymatters";
