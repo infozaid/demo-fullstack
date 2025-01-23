@@ -1,7 +1,7 @@
 package com.example.demo.auth;
 
 
-import com.example.demo.Security.UserAuthenticationProvider;
+import com.example.demo.user.UserAuthenticationProvider;
 import com.example.demo.Security.jwt.JwtUtils;
 import com.example.demo.auth.payload.AuthenticationRequest;
 import com.example.demo.auth.payload.AuthenticationResponse;

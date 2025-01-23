@@ -3,6 +3,7 @@ package com.example.demo.Security;
 
 import com.example.demo.Security.jwt.AuthEntryPointJwt;
 import com.example.demo.Security.jwt.AuthTokenFilter;
+import com.example.demo.user.UserAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

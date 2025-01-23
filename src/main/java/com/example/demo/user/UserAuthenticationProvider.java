@@ -1,4 +1,4 @@
-package com.example.demo.Security;
+package com.example.demo.user;
 
 import com.example.demo.util.CustomEncoderPass;
 import lombok.RequiredArgsConstructor;
