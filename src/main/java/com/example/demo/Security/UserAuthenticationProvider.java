@@ -24,11 +24,9 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName().trim();
         UserDetails userDetails =  userDetailsService.loadUserByUsername(username);
         boolean isPasswordValid = customEncoderPass.matches(authentication.getCredentials().toString().trim(),userDetails.getPassword());
-
         if(!isPasswordValid){
             throw new BadCredentialsException("Invalid Login Credentials");
         }
-
         return new UsernamePasswordAuthenticationToken(userDetails,userDetails.getPassword(), userDetails.getAuthorities());
     }
 
