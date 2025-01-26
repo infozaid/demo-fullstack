@@ -1,6 +1,6 @@
 package com.example.demo.Security.jwt;
 
-import com.example.demo.user.UserDetailsImpl;
+import com.example.demo.user.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -25,7 +25,7 @@ public class JwtUtils {
     private String jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication){
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        User userPrincipal = (User) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
