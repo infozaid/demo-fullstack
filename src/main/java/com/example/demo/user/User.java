@@ -5,13 +5,11 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,13 +37,13 @@ public class User implements UserDetails {
     @Size(max = 120)
     private String password;
 
-    /*@ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();*/
+    private Set<Role> roles = new HashSet<>();
 
-    private ERole roles;
+    private ERole role;
 
     public User() {
     }
@@ -56,11 +54,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(String username, String email, String password, ERole roles) {
+    public User(String username, String email, String password, ERole role) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
 
     public Integer getId() {
