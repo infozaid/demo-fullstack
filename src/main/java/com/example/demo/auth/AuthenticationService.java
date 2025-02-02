@@ -25,8 +25,8 @@ public class AuthenticationService {
 
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest){
         Authentication authentication = userAuthenticationProvider
-                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.userName(),
-                        authenticationRequest.Password()));
+                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.username(),
+                        authenticationRequest.password()));
 
         User user = (User) authentication.getPrincipal();
         UserDTO userDTO = userDtoMapper.apply(user);

@@ -34,6 +34,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         String jwt = parseJwt(request);
 
+        String requestURI = request.getRequestURI();
+
+        // Skip JWT Authentication for Public Endpoints
+        /*if (requestURI.startsWith("/api/v1/users")) {
+            filterChain.doFilter(request, response);
+            return;
+        }*/
+
         if(jwt !=null  && jwtUtils.validateJwtToken(jwt)){
             String userName = jwtUtils.getUserNameFromJwtToken(jwt);
             UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
@@ -45,8 +53,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            filterChain.doFilter(request,response);
         }
+        filterChain.doFilter(request,response);
 
     }
 
