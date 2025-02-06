@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -25,18 +27,21 @@ public class JwtUtils {
     @Value("${demo.app.jwtExpirationMs}")
     private String jwtExpirationMs;
 
-    public long getJwtExpirationInMillis() {
+    public long getJwtExpirationMillis(){
         return Long.parseLong(jwtExpirationMs);
     }
 
+    public String issueToken(String subject, List<String> scopes){
+        return generateJwtToken(subject, Map.of("scopes",scopes));
+    }
 
-    public String generateJwtToken(Authentication authentication){
-        User userPrincipal = (User) authentication.getPrincipal();
+    public String generateJwtToken(String subject, Map<String,Object> claims){
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setClaims(claims)
+                .setSubject(subject)
                 .setIssuedAt(new Date())
-                .setExpiration(Date.from(Instant.now().plusMillis(getJwtExpirationInMillis())))
+                .setExpiration(Date.from(Instant.now().plusMillis(getJwtExpirationMillis())))
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
     }

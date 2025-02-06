@@ -11,7 +11,11 @@ import com.example.demo.user.UserDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -29,8 +33,14 @@ public class AuthenticationService {
                         authenticationRequest.password()));
 
         User user = (User) authentication.getPrincipal();
+        List<String> roles =user
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
         UserDTO userDTO = userDtoMapper.apply(user);
-        String token = jwtUtils.generateJwtToken(authentication);
+        String token = jwtUtils.issueToken(userDTO.userName(),roles);
         return new AuthenticationResponse(token,userDTO);
     }
 

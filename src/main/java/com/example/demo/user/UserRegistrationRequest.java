@@ -1,9 +1,13 @@
 package com.example.demo.user;
 
+import com.example.demo.user.role.Role;
+
+import java.util.Set;
+
 public record UserRegistrationRequest(
         String name,
         String email,
         String password,
-        ERole role
+        Set<String> roles
 ) {
 }

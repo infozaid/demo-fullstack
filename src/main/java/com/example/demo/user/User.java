@@ -1,6 +1,7 @@
 package com.example.demo.user;
 
 
+import com.example.demo.user.role.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
 public class User implements UserDetails {
@@ -37,13 +37,13 @@ public class User implements UserDetails {
     @Size(max = 120)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    private ERole role;
+
 
     public User() {
     }
@@ -54,12 +54,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(String username, String email, String password, ERole role) {
+    public User(String username, String email, String password, Set<Role> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
+
+
 
     public Integer getId() {
         return id;
