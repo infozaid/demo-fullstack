@@ -33,14 +33,10 @@ public class AuthenticationService {
                         authenticationRequest.password()));
 
         User user = (User) authentication.getPrincipal();
-        List<String> roles =user
-                .getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+
 
         UserDTO userDTO = userDtoMapper.apply(user);
-        String token = jwtUtils.issueToken(userDTO.userName(),roles);
+        String token = jwtUtils.issueToken(userDTO.userName(),userDTO.roles());
         return new AuthenticationResponse(token,userDTO);
     }
 

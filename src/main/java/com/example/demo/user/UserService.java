@@ -49,6 +49,17 @@ public class UserService {
         Set<Role> userRoles = new HashSet<>();
         if(userRegistrationRequest.roles()==null || userRegistrationRequest.roles().isEmpty()){
             userRoles.add(roleMap.get("role_user"));
+        }else{
+            userRoles = userRegistrationRequest.roles()
+                    .stream()
+                    .map(roleName -> {
+                        Role role = roleMap.get(roleName.toLowerCase());
+                        if (role == null) {
+                            throw new RuntimeException("Error: Role '" + roleName + "' not found.");
+                        }
+                        return role; // Use existing role from DB, not new Role()
+                    })
+                    .collect(Collectors.toSet());
         }
 
         User user = new User(userRegistrationRequest.name(),
