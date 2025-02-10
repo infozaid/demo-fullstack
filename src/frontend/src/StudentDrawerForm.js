@@ -9,15 +9,9 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 
 function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
-  //const [open, setOpen] = useState(false);
+
   const onClose = () => setShowDrawer(false);
   const [submitting, setSubmitting] = useState(false);
-  //   const showDrawer = () => {
-  //     setOpen(true);
-  //   };
-  //   const onClose = () => {
-  //     setOpen(false);
-  //   };
 
   const onFinish = student => {
     setSubmitting(true);
@@ -41,22 +35,7 @@ function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
     }).finally(() => {
       setSubmitting(false);
     })
-    //  addNewStudent(student).then(()=>{
-    //                       console.log("student added"); 
-    //                       onClose();
-    //                       successNotification(
-    //                           "Student Successfully added",
-    //                            `${student.name} was added to the system`)
-    //                       fetchStudents();
-    //                   }).catch(err =>{
-    //                     console.log(err.response);
-    //                     err.response.json().then(res=>{
-    //                        console.log(res);
-    //                        errorNotification("There was an issue",`${res.message} [${res.status}] [${res.error}]`,"bottomLeft");
-    //                    });
-    //                   }).finally(()=>{
-    //                       setSubmitting(false);
-    //                   });
+
   };
 
 
@@ -67,9 +46,6 @@ function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
 
   return (
     <>
-      {/* <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-        New account
-      </Button> */}
       <Drawer
         title="Create new student"
         width={720}
@@ -80,14 +56,6 @@ function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
             paddingBottom: 80,
           },
         }}
-      // extra={
-      //   <Space>
-      //     <Button onClick={onClose}>Cancel</Button>
-      //     <Button onClick={onClose} type="primary">
-      //       Submit
-      //     </Button>
-      //   </Space>
-      // }
       >
         <Form layout="vertical"
           onFinishFailed={onFinishFailed}
@@ -142,61 +110,6 @@ function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
                 </Select>
               </Form.Item>
             </Col>
-            {/* <Col span={12}>
-              <Form.Item
-                name="type"
-                label="Type"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please choose the type',
-                  },
-                ]}
-              >
-                <Select placeholder="Please choose the type">
-                  <Option value="private">Private</Option>
-                  <Option value="public">Public</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="approver"
-                label="Approver"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please choose the approver',
-                  },
-                ]}
-              >
-                <Select placeholder="Please choose the approver">
-                  <Option value="jack">Jack Ma</Option>
-                  <Option value="tom">Tom Liu</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="dateTime"
-                label="DateTime"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please choose the dateTime',
-                  },
-                ]}
-              >
-                <DatePicker.RangePicker
-                  style={{
-                    width: '100%',
-                  }}
-                  getPopupContainer={(trigger) => trigger.parentElement}
-                />
-              </Form.Item>
-            </Col> */}
           </Row>
           <Row gutter={16}>
             <Col span={24}>

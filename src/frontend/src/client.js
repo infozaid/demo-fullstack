@@ -29,3 +29,13 @@ export const deleteStudent = (studentId) =>
     fetch(`api/v1/students/${studentId}`, {
         method: 'DELETE'
     }).then(checkStatus);
+
+export const login = async (userNameAndPassword) =>
+    fetch("api/v1/auth", {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(userNameAndPassword)
+    }
+    ).then(checkStatus);

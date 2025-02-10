@@ -1,5 +1,6 @@
 package com.example.demo.user;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findUserByUsername(username)
-                .orElseThrow(()->new UsernameNotFoundException("User Not Found with username: "+username));
+                .orElseThrow(()->new ResourceNotFoundException("User Not Found with username: "+username));
     }
 }
