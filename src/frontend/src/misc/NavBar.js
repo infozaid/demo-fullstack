@@ -22,40 +22,32 @@ function getItem(label, key, icon, children, onClick, style) {
 
 function Navbar() {
     const navigate = useNavigate();
-    debugger;
     const [collapsed, setCollapsed] = useState(false);
-    const { getUser, isUserAuthenticated } = useAuth();
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+    const { user, isUserAuthenticated, logout } = useAuth();
+    const { token: { colorBgContainer } } = theme.useToken();
 
-    const enterMenuStyle = () => {
-        debugger;
-        return isUserAuthenticated() ? { "display": "none" } : { "display": "block" };
-    }
+    const enterMenuStyle = () => isUserAuthenticated() ? { display: "none" } : { display: "block" };
+    const logoutMenuStyle = () => isUserAuthenticated() ? { display: "block" } : { display: "none" };
 
-    const adminPageStyle = () => { 
-        const user = getUser();
-        return user && user.roles.includes('ROLE_ADMIN') ? { "display": "block" } : { "display": "none" };
-    }
+    const adminPageStyle = () => {
+        return user && user.roles.includes('ROLE_ADMIN') ? { display: "block" } : { display: "none" };
+    };
 
     const userPageStyle = () => {
-        debugger;
-        const user = getUser();
-        return user && user.roles.includes('ROLE_USER') ? { "display": "block" } : { "display": "none" };
-    }
-
+        return user && user.roles.includes('ROLE_USER') ? { display: "block" } : { display: "none" };
+    };
 
     const items = [
         getItem('Home', '1', <PieChartOutlined />, null, () => navigate('/')),
-        //   getItem('Admin Page', '2', <DesktopOutlined />, null, () => navigate('/adminpage'), adminPageStyle()),
         getItem('User Page', '2', <UserOutlined />, null, () => navigate('/UserPage'), userPageStyle()),
-        getItem('Login', '3', <UserOutlined />, null, () => navigate('/login'), enterMenuStyle()),
-        getItem('Sign Up', '4', <UserOutlined />, null, () => navigate('/signup'), enterMenuStyle()),
-        //  getItem(`Hi ${getUserName()}`, '6', null, null, null, logoutMenuStyle()),
-        //  getItem('Logout', '7', <UserOutlined />, null, logout, logoutMenuStyle()),
+        getItem('Admin Page', '3', <UserOutlined />, null, () => navigate('/adminpage'), adminPageStyle()),
+        getItem('Login', '4', <UserOutlined />, null, () => navigate('/login'), enterMenuStyle()),
+        getItem('Sign Up', '5', <UserOutlined />, null, () => navigate('/signup'), enterMenuStyle()),
+        getItem('Logout', '6', <UserOutlined />, null, () => {
+            logout();
+            navigate('/login'); // Redirect to login page after logout
+        }, logoutMenuStyle()),
     ];
-
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -66,22 +58,14 @@ function Navbar() {
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }} />
                 <Content style={{ margin: '0px', background: colorBgContainer }}>
-                    <Outlet /> {/* This will render the content of the active route */}
+                    <Outlet />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
                     Created By ZAID 2024.
-                    <Divider>
-                        <a
-                            rel="noreferrer"
-                            target="_blank"
-                            href="https://www.bestbuy.com/site/computers-pcs/laptop-computers/abcat0502000.c?id=abcat0502000"
-                        >
-                            Click here to buy latest tech.
-                        </a>
-                    </Divider>
                 </Footer>
             </Layout>
         </Layout>
     );
 }
+
 export default Navbar;

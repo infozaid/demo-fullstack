@@ -10,15 +10,20 @@ const checkStatus = response => {
     return Promise.reject(error);
 }
 
+const getToken = () => localStorage.getItem("access_token");
 
 export const getAllStudents = () =>
-    fetch("api/v1/students")
-        .then(checkStatus);
+    fetch("api/v1/students",{
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+        }
+    }).then(checkStatus);
 
 export const addNewStudent = student =>
     fetch("api/v1/students", {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getToken()}`,
         },
         method: "POST",
         body: JSON.stringify(student)
@@ -27,7 +32,10 @@ export const addNewStudent = student =>
 
 export const deleteStudent = (studentId) =>
     fetch(`api/v1/students/${studentId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`,
+        }
     }).then(checkStatus);
 
 export const login = async (userNameAndPassword) =>
@@ -40,3 +48,4 @@ export const login = async (userNameAndPassword) =>
     }
     ).then(checkStatus)
         .then(res => res.json());
+
