@@ -10,7 +10,10 @@ function AuthProvider({ children }) {
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
-        setUser(storedUser);
+        if (storedUser) {
+            setUser(storedUser);
+        }
+
     }, [])
 
     const getUser = () => {
@@ -19,6 +22,7 @@ function AuthProvider({ children }) {
 
 
     const isUserAuthenticated = () => {
+        debugger;
         const token = localStorage.getItem("access_token");
         if (!token) {
             return false;
@@ -36,10 +40,10 @@ function AuthProvider({ children }) {
     const login = async (userNameAndPassword) => {
         return new Promise((resolve, reject) => {
             performLogin(userNameAndPassword).then(res => {
-                const  token = res.token;
+                const token = res.token;
 
-                console.log("Extracted Token: ",token)
-                
+                console.log("Extracted Token: ", token)
+
                 if (!token || token.split(".").length !== 3) {
                     console.error("Invalid JWT Token:", token);
                     throw new Error("Invalid JWT Token");
@@ -47,10 +51,12 @@ function AuthProvider({ children }) {
                 localStorage.setItem("access_token", token);
 
                 const decodeToken = jwtDecode(token);
-                setUser({
-                    username: decodeToken.sub,
-                    roles: decodeToken.scopes
-                })
+                const userData = {
+                    roles: decodeToken.scopes,
+                    username: decodeToken.sub
+                };
+                localStorage.setItem('user', JSON.stringify(userData));
+                setUser(userData);
                 resolve(res);
             }).catch(err => {
                 reject(err);

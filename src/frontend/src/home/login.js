@@ -8,7 +8,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const Login = () => {
 
-  const { login } = useAuth();
+  const  {login}  = useAuth();
   const navigate = useNavigate();
 
   const [submitting, setSubmitting] = useState(false);
@@ -23,9 +23,9 @@ const Login = () => {
       console.log("Successfully logged in");
     }).catch(err => {   
       errorNotification(
-        
-        err.code,
-        err.response.data.message
+        "There was an issue",
+        `${err.message} [${err.status}] [${err.error}]`,
+        "bottomLeft"
       )
     }).finally(() => { 
       setSubmitting(false);

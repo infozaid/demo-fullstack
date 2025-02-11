@@ -22,6 +22,7 @@ function getItem(label, key, icon, children, onClick, style) {
 
 function Navbar() {
     const navigate = useNavigate();
+    debugger;
     const [collapsed, setCollapsed] = useState(false);
     const { getUser, isUserAuthenticated } = useAuth();
     const {
@@ -29,6 +30,7 @@ function Navbar() {
     } = theme.useToken();
 
     const enterMenuStyle = () => {
+        debugger;
         return isUserAuthenticated() ? { "display": "none" } : { "display": "block" };
     }
 
@@ -38,6 +40,7 @@ function Navbar() {
     }
 
     const userPageStyle = () => {
+        debugger;
         const user = getUser();
         return user && user.roles.includes('ROLE_USER') ? { "display": "block" } : { "display": "none" };
     }

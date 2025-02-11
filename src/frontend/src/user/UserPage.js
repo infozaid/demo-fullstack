@@ -109,7 +109,7 @@ function UserPage() {
   const [showDrawer, setShowDrawer] = useState(false);
   const auth = useAuth();
   const user = auth.getUser();
-  const isUser = user.data.rol[0] === 'USER';
+  const isUser = user.roles.includes('ROLE_USER');
 
   const fetchStudents = () =>
     getAllStudents()
