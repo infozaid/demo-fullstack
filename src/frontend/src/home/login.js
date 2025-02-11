@@ -1,12 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { errorNotification } from '../Notification';
+import { LoadingOutlined } from '@ant-design/icons';
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const Login = () => {
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const onFinish = (values) => { 
+    setSubmitting(true);
+
+    debugger;
+
+    login(values).then(res => { 
+      navigate("/");
+      console.log("Successfully logged in");
+    }).catch(err => {   
+      errorNotification(
+        
+        err.code,
+        err.response.data.message
+      )
+    }).finally(() => { 
+      setSubmitting(false);
+    })
+  }
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+
 
   return (
     <div className='login-form-style'>
@@ -60,8 +90,8 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item label={null}>
-          <Button type="primary" htmlType="submit" className='login-button-position'>
-            Submit
+          <Button type="primary" htmlType="submit" className='login-button-position' disabled={submitting}>
+            {submitting ? <spin indicator={ antIcon} /> : 'submit' }
           </Button>
         </Form.Item>
       </Form>

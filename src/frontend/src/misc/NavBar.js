@@ -23,18 +23,23 @@ function getItem(label, key, icon, children, onClick, style) {
 function Navbar() {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
-    const { getUser, userIsAuthenticated } = useAuth();
+    const { getUser, isUserAuthenticated } = useAuth();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
     const enterMenuStyle = () => {
-        return userIsAuthenticated() ? { "display": "none" } : { "display": "block" };
+        return isUserAuthenticated() ? { "display": "none" } : { "display": "block" };
+    }
+
+    const adminPageStyle = () => { 
+        const user = getUser();
+        return user && user.roles.includes('ROLE_ADMIN') ? { "display": "block" } : { "display": "none" };
     }
 
     const userPageStyle = () => {
         const user = getUser();
-        return user && user.role === 'USER' ? { "display": "block" } : { "display": "none" };
+        return user && user.roles.includes('ROLE_USER') ? { "display": "block" } : { "display": "none" };
     }
 
 

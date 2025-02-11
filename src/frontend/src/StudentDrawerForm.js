@@ -5,6 +5,7 @@ import { addNewStudent } from './client';
 import { successNotification, errorNotification } from './Notification';
 
 const { Option } = Select;
+
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 

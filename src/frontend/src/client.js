@@ -38,4 +38,5 @@ export const login = async (userNameAndPassword) =>
         method: 'POST',
         body: JSON.stringify(userNameAndPassword)
     }
-    ).then(checkStatus);
+    ).then(checkStatus)
+        .then(res => res.json());

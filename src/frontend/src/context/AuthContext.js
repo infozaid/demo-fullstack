@@ -36,10 +36,17 @@ function AuthProvider({ children }) {
     const login = async (userNameAndPassword) => {
         return new Promise((resolve, reject) => {
             performLogin(userNameAndPassword).then(res => {
-                const jwtToken = res.headers["authorization"];
-                localStorage.setItem("access_token", jwtToken);
+                const  token = res.token;
 
-                const decodeToken = jwtDecode(jwtToken);
+                console.log("Extracted Token: ",token)
+                
+                if (!token || token.split(".").length !== 3) {
+                    console.error("Invalid JWT Token:", token);
+                    throw new Error("Invalid JWT Token");
+                }
+                localStorage.setItem("access_token", token);
+
+                const decodeToken = jwtDecode(token);
                 setUser({
                     username: decodeToken.sub,
                     roles: decodeToken.scopes

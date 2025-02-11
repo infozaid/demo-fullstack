@@ -12,8 +12,7 @@ import StudentDrawerForm from '../StudentDrawerForm';
 import { errorNotification, successNotification } from '../Notification';
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
-
-
+import { PropTypes } from 'prop-types';
 
 
 
@@ -30,6 +29,10 @@ const TheAvatar = ({ name }) => {
 
   return <Avatar>{`${name.charAt(0)}${name.length - 1}`}</Avatar>
 }
+
+TheAvatar.propTypes = {
+  name: PropTypes.string.isRequired, // Ensures 'name' is a required string
+};
 
 const removeStudent = (studentId, callback) => {
   deleteStudent(studentId).then(() => {
@@ -137,19 +140,22 @@ function UserPage() {
     }
 
     if (students.length <= 0) {
+      return (
+        <>
+          <Button
+            onClick={() => setShowDrawer(!showDrawer)}
+            type="primary" size="small"
+            icon={<PlusOutlined />} >Add Student</Button>
 
-      <>
-        <Button
-          onClick={() => setShowDrawer(!showDrawer)}
-          type="primary" size="small"
-          icon=<PlusOutlined /> >Add Student</Button>
+          <StudentDrawerForm
+            showDrawer={showDrawer}
+            setShowDrawer={setShowDrawer}
+            fetchStudents={fetchStudents}
+          />
+        </>
+      );
+      
 
-        <StudentDrawerForm
-          showDrawer={showDrawer}
-          setShowDrawer={setShowDrawer}
-          fetchStudents={fetchStudents}
-        />
-      </>
     }
 
     if (!isUser) {
@@ -173,7 +179,7 @@ function UserPage() {
             <Tag>Number of students</Tag>
             <Badge count={students.length} className='site-badge-count-4' color='#f0f5ff' />
             <br /><br />
-            <Button onClick={() => setShowDrawer(!showDrawer)} type="primary" size="small" icon=<PlusOutlined /> >Add Student</Button>
+            <Button onClick={() => setShowDrawer(!showDrawer)} type="primary" size="small" icon={<PlusOutlined />} >Add Student</Button>
           </>
         }
         pagination={{ pageSize: 50 }}
