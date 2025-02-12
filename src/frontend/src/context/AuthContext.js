@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { login as performLogin } from '../client';
+import { getAllStudents, login as performLogin } from '../client';
 import jwtDecode from 'jwt-decode';
 
 const AuthContext = createContext();
@@ -34,22 +34,41 @@ function AuthProvider({ children }) {
         return true;
     }
 
+    const isUserHasAccessOnPage = () => {
+        if (isUserAuthenticated()) {
+            return getAllStudents()
+                .then(res => {
+                    if (res.status === 403) {
+                        console.log("Access Denied");
+                        return false;
+                    }
+                    return res.json().then(data => {
+                        console.log("Access Granted:", data);
+                        return true; // ✅ Return true if API call succeeds
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    return false;
+                });
+        }
+        return Promise.resolve(false);
+    };
+
 
 
     const login = async (userNameAndPassword) => {
         return new Promise((resolve, reject) => {
             performLogin(userNameAndPassword).then(res => {
-                const token = res.token;
+                const jwtToken = res.token;
 
-                console.log("Extracted Token: ", token)
-
-                if (!token || token.split(".").length !== 3) {
-                    console.error("Invalid JWT Token:", token);
+                if (!jwtToken || jwtToken.split(".").length !== 3) {
+                    console.error("Invalid JWT Token:", jwtToken);
                     throw new Error("Invalid JWT Token");
                 }
-                localStorage.setItem("access_token", token);
+                localStorage.setItem("access_token", jwtToken);
 
-                const decodeToken = jwtDecode(token);
+                const decodeToken = jwtDecode(jwtToken);
                 const userData = {
                     roles: decodeToken.scopes,
                     username: decodeToken.sub
@@ -75,6 +94,7 @@ function AuthProvider({ children }) {
         isUserAuthenticated,
         login,
         logout,
+        isUserHasAccessOnPage,
     }
 
     return (

@@ -1,7 +1,6 @@
 package com.example.demo.student;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_user')")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     @GetMapping
     public List<Student>  getAllStudents(){
 
@@ -36,13 +35,13 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @PreAuthorize("hasAuthority('ROLE_user')")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     @PostMapping
     public void addStudent(@Valid @RequestBody Student student){
         studentService.addStudent(student);
     }
 
-    @DeleteMapping(path = "{studentId}")
+  //  @DeleteMapping(path = "{studentId}")
     public void deleteStudent(@PathVariable("studentId") long studentId){
         studentService.deleteStudent(studentId);
     }

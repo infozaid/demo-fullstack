@@ -7,6 +7,7 @@ import UserPage from './user/UserPage';
 import './App.css';
 import Home from './home/home';
 import Login from './home/login';
+import AccessDenied from './error-display/AccessDenied';
 
 
 
@@ -22,6 +23,7 @@ function App() {
             <Route index element={<Home />} /> {/* Default route */}
             <Route path="userpage" element={<UserPage />} />
             <Route path="/userpage" element={<PrivateRoute><UserPage /></PrivateRoute>} />
+            <Route path="/access-denied" element={<AccessDenied/>}/>
             <Route path="login" element={<Login />} />
             {/* <Route path="signup" element={<Signup />} />  */}
           </Route>

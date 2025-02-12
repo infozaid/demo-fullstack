@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout, Menu, theme } from 'antd';
 import {
     PieChartOutlined,
@@ -23,8 +23,21 @@ function getItem(label, key, icon, children, onClick, style) {
 function Navbar() {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
-    const { user, isUserAuthenticated, logout } = useAuth();
+    const { user, isUserAuthenticated, logout , isUserHasAccessOnPage } = useAuth();
     const { token: { colorBgContainer } } = theme.useToken();
+    const [hasUserPageAccess , setHasUserPageAccess] = useState(false);
+
+    useEffect(()=>{
+        if(isUserAuthenticated()){
+            isUserHasAccessOnPage()
+            .then(access =>{
+                console.log("User Page Access: ",access);
+                setHasUserPageAccess(access);
+            })
+        }else{
+            setHasUserPageAccess(false);
+        }
+    },[user, isUserAuthenticated, isUserHasAccessOnPage]);
 
     const enterMenuStyle = () => isUserAuthenticated() ? { display: "none" } : { display: "block" };
     const logoutMenuStyle = () => isUserAuthenticated() ? { display: "block" } : { display: "none" };
@@ -34,7 +47,8 @@ function Navbar() {
     };
 
     const userPageStyle = () => {
-        return user && user.roles.includes('ROLE_USER') ? { display: "block" } : { display: "none" };
+        debugger;
+        return hasUserPageAccess ? { display: "block" } : { display: "none" };
     };
 
     const items = [

@@ -108,13 +108,13 @@ const UserPage = () => {
   const [students, setStudents] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
+
+  
   const auth = useAuth();
   const user = auth.getUser();
-  const isUser = user && user.roles ? user.roles.includes('ROLE_USER') : false;
-  
+  const isUser = user && user.roles ? true : false;
 
  
-
   useEffect(() => {
     if (isUser) {
       console.log("Component is mounted.");
@@ -143,8 +143,8 @@ const UserPage = () => {
       }).catch(err => {
         console.log(err.response);
         err.response.json().then(res => {
-          console.log(res);
-          errorNotification("There was an issue", `${res.message} [${res.status}] [${res.error}]`);
+            console.log(res);
+            errorNotification("There was an issue", `${res.message} [${res.status}] [${res.error}]`);
         });
       }).finally(() => setFetching(false));
   

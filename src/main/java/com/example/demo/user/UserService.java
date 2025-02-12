@@ -55,7 +55,7 @@ public class UserService {
                     .map(roleName -> {
                         Role role = roleMap.get(roleName.toLowerCase());
                         if (role == null) {
-                            throw new RuntimeException("Error: Role '" + roleName + "' not found.");
+                            throw new ResourceNotFoundException("Error: Role '" + roleName + "' not found.");
                         }
                         return role; // Use existing role from DB, not new Role()
                     })
