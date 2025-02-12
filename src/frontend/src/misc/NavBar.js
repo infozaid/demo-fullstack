@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layout, Menu, theme, Divider } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import {
     PieChartOutlined,
     UserOutlined

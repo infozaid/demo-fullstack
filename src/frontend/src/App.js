@@ -1,14 +1,11 @@
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Sider from 'antd/es/layout/Sider';
-import { Content } from 'antd/es/layout/layout';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navbar from './misc/NavBar';
 import PrivateRoute from './misc/PrivateRoute';
 import UserPage from './user/UserPage';
 import './App.css';
 import Home from './home/home';
-import { Layout } from 'antd';
 import Login from './home/login';
 
 

@@ -22,7 +22,6 @@ function AuthProvider({ children }) {
 
 
     const isUserAuthenticated = () => {
-        debugger;
         const token = localStorage.getItem("access_token");
         if (!token) {
             return false;

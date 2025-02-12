@@ -3,6 +3,7 @@ package com.example.demo.student;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
+    @PreAuthorize("hasAnyAuthority('ROLE_user')")
     @GetMapping
     public List<Student>  getAllStudents(){
 
@@ -34,6 +36,7 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_user')")
     @PostMapping
     public void addStudent(@Valid @RequestBody Student student){
         studentService.addStudent(student);

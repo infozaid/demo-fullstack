@@ -11,7 +11,6 @@ import { Table } from 'antd';
 import StudentDrawerForm from '../StudentDrawerForm';
 import { errorNotification, successNotification } from '../Notification';
 import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 
@@ -102,16 +101,38 @@ const columns = fetchStudents => [
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} Spin />;
 
-function UserPage() {
+const UserPage = () => {
+
+  debugger;
 
   const [students, setStudents] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [showDrawer, setShowDrawer] = useState(false);
   const auth = useAuth();
   const user = auth.getUser();
-  const isUser = user && user.roles? user.roles.includes('ROLE_USER') : false;
+  const isUser = user && user.roles ? user.roles.includes('ROLE_USER') : false;
+  
+
+ 
+
+  useEffect(() => {
+    if (isUser) {
+      console.log("Component is mounted.");
+      fetchStudents();
+    }
+  }, [isUser]);
+
+  if (!user || !isUser) {
+    return (
+      <div style={{ textAlign: "center", padding: "50px", fontSize: "20px", color: "red" }}>
+        <h1>🚫 Access Denied</h1>
+        <p>You do not have permission to view this page.</p>
+      </div>
+    );
+  }
 
   const fetchStudents = () =>
+   
     getAllStudents()
       .then(res => res.json())
       .then(data => {
@@ -126,12 +147,10 @@ function UserPage() {
           errorNotification("There was an issue", `${res.message} [${res.status}] [${res.error}]`);
         });
       }).finally(() => setFetching(false));
+  
 
 
-  useEffect(() => {
-    console.log("Component is mounted.");
-    fetchStudents();
-  }, []);
+
 
   const renderStudents = () => {
 
@@ -157,11 +176,8 @@ function UserPage() {
       
 
     }
-
-    if (!isUser) {
-      return <Navigate to="/" />
-    }
-
+    
+    
     return <>
       <StudentDrawerForm
         showDrawer={showDrawer}

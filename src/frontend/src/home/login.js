@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Spin } from 'antd';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { errorNotification } from '../Notification';
@@ -7,6 +7,8 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const Login = () => {
+
+  debugger;
 
   const  {login}  = useAuth();
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const Login = () => {
   const onFinish = (values) => { 
     setSubmitting(true);
 
-    debugger;
+
 
     login(values).then(res => { 
       navigate("/");
@@ -91,7 +93,13 @@ const Login = () => {
 
         <Form.Item label={null}>
           <Button type="primary" htmlType="submit" className='login-button-position' disabled={submitting}>
-            {submitting ? <spin indicator={ antIcon} /> : 'submit' }
+            {submitting ? (
+              <>
+                <Spin indicator={antIcon} style={{ marginRight: 8 }} /> Submitting...
+              </>
+            ) : (
+              'Submit'
+            )}
           </Button>
         </Form.Item>
       </Form>
