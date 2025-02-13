@@ -19,14 +19,24 @@ const Login = () => {
 
 
     login(values).then(res => { 
+      debugger;
       navigate("/");
       console.log("Successfully logged in");
     }).catch(err => {   
-      errorNotification(
-        "There was an issue",
-        `${err.message} [${err.status}] [${err.error}]`,
-        "bottomLeft"
-      )
+      debugger;
+      if (err.message === "Internal Server Error") { 
+        errorNotification(
+          "Our Server is under construction Please try later",
+          `${err.message} [${err.status}] [${err.error}]`,
+          "bottomLeft"
+        )
+      } else {
+        errorNotification(
+          "There was an issue",
+          `${err.message} [${err.status}] [${err.error}]`,
+          "bottomLeft"
+        )
+}
     }).finally(() => { 
       setSubmitting(false);
     })

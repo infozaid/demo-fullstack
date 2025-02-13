@@ -12,6 +12,7 @@ import StudentDrawerForm from '../StudentDrawerForm';
 import { errorNotification, successNotification } from '../Notification';
 import { useAuth } from '../context/AuthContext';
 import { PropTypes } from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -40,6 +41,7 @@ const removeStudent = (studentId, callback) => {
   }).catch(err => {
     console.log(err.response);
     err.response.json().then(res => {
+      debugger;
       console.log(res);
       errorNotification("There was an issue" `${res.message} [${res.status}] [${res.error}]`)
     })
@@ -112,7 +114,8 @@ const UserPage = () => {
   
   const auth = useAuth();
   const user = auth.getUser();
-  const isUser = user && user.roles ? true : false;
+  const isUser = user && user.roles ? true : false; // works when user want to access the page after logout
+  const naviagte = useNavigate();
 
  
   useEffect(() => {
@@ -141,10 +144,16 @@ const UserPage = () => {
         setFetching(false);
 
       }).catch(err => {
+        debugger;
         console.log(err.response);
         err.response.json().then(res => {
-            console.log(res);
+          console.log(res);
+          if (res.status === 403) { 
+            naviagte("/access-denied")
+          } else {
             errorNotification("There was an issue", `${res.message} [${res.status}] [${res.error}]`);
+          }
+            
         });
       }).finally(() => setFetching(false));
   

@@ -14,7 +14,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
     public List<Student>  getAllStudents(){
 
@@ -35,7 +35,7 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping
     public void addStudent(@Valid @RequestBody Student student){
         studentService.addStudent(student);

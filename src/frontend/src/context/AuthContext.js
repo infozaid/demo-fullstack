@@ -34,6 +34,7 @@ function AuthProvider({ children }) {
         return true;
     }
 
+    // works when user have not access grant for page 
     const isUserHasAccessOnPage = () => {
         if (isUserAuthenticated()) {
             return getAllStudents()
