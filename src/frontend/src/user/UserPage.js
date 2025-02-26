@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { deleteStudent, getAllStudents } from '../client';
 import { Spin, Button, Badge, Tag, Avatar, Popconfirm, Radio } from 'antd';
 import {
@@ -118,24 +118,8 @@ const UserPage = () => {
   const naviagte = useNavigate();
 
  
-  useEffect(() => {
-    if (isUser) {
-      console.log("Component is mounted.");
-      fetchStudents();
-    }
-  }, [isUser]);
-
-  if (!user || !isUser) {
-    return (
-      <div style={{ textAlign: "center", padding: "50px", fontSize: "20px", color: "red" }}>
-        <h1>🚫 Access Denied</h1>
-        <p>You do not have permission to view this page.</p>
-      </div>
-    );
-  }
-
-  const fetchStudents = () =>
-   
+  const fetchStudents = useCallback(() => {
+    
     getAllStudents()
       .then(res => res.json())
       .then(data => {
@@ -148,14 +132,36 @@ const UserPage = () => {
         console.log(err.response);
         err.response.json().then(res => {
           console.log(res);
-          if (res.status === 403) { 
+          if (res.status === 403) {
             naviagte("/access-denied")
           } else {
             errorNotification("There was an issue", `${res.message} [${res.status}] [${res.error}]`);
           }
-            
+
         });
-      }).finally(() => setFetching(false));
+      }).finally(() => setFetching(false))
+
+  },[naviagte]);
+
+    
+
+  useEffect(() => {
+    if (isUser) {
+      console.log("Component is mounted.");
+      fetchStudents();
+    }
+  }, [isUser , fetchStudents]);
+
+  if (!user || !isUser) {
+    return (
+      <div style={{ textAlign: "center", padding: "50px", fontSize: "20px", color: "red" }}>
+        <h1>🚫 Access Denied</h1>
+        <p>You do not have permission to view this page.</p>
+      </div>
+    );
+  }
+
+  
   
 
 

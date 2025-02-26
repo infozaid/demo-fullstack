@@ -15,21 +15,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="mes_category")
-public class Category {
+@Table(name="mes_sub_category")
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
+    private Long subCategoryId;
 
-    @Column(nullable = false)
-    private String categoryName;
+    private String name;
 
     @ManyToOne
-    @JoinColumn(name="parent_category_id", nullable = false)
-    private ParentCategory parentCategory;
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-    @OneToMany(mappedBy = "mes_category" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    private List<SubCategory> subCategories;
-
+    @OneToMany(mappedBy = "mes_sub_category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> products;
 }

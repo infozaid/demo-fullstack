@@ -3,6 +3,7 @@ package com.example.demo.product;
 
 import com.example.demo.brand.Brand;
 import com.example.demo.category.Category;
+import com.example.demo.category.SubCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,8 +49,8 @@ public class Product {
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id",nullable = false)
-    private Category category;
+    @JoinColumn(name = "sub_category_id",nullable = false)
+    private SubCategory subCategories;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id",nullable = false)
@@ -60,7 +61,5 @@ public class Product {
 
     @OneToMany(mappedBy = "mes_product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ProductAttribute> productAttributes;
-
-
 
 }
