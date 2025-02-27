@@ -1,7 +1,5 @@
 package com.example.demo.category;
 
-
-import com.example.demo.product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

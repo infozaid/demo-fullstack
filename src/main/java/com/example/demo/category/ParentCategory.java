@@ -21,9 +21,13 @@ public class ParentCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long parentCategoryId;
 
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "mes_parent_category", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Category> categories;
 
+    public ParentCategory(String name) {
+        this.name = name;
+    }
 }

@@ -40,10 +40,9 @@ public class UserService {
 
     public void addUser(UserRegistrationRequest userRegistrationRequest){
 
-        String email = userRegistrationRequest.email();
         Map<String, Role> roleMap = roleDAO.findALlRoles();
 
-        if(userDao.existsUserWithEmail(email)){
+        if(userDao.existsUserWithEmail(userRegistrationRequest.email())){
             throw new DuplicateResourceException("email already taken");
         }
         Set<Role> userRoles = new HashSet<>();
@@ -68,8 +67,5 @@ public class UserService {
         user.setRoles(userRoles);
         userDao.insertUser(user);
     }
-
-
-
 
 }
