@@ -25,7 +25,7 @@ public class Brand {
     @Column(nullable = false)
     private String brandName;
 
-    @OneToMany(mappedBy = "mes_brand" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "brand" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Product> products;
 
 

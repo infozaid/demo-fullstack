@@ -50,16 +50,16 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_category_id",nullable = false)
-    private SubCategory subCategories;
+    private SubCategory subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id",nullable = false)
     private Brand brand;
 
-    @OneToMany(mappedBy = "mes_product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ProductReviews> reviews;
 
-    @OneToMany(mappedBy = "mes_product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ProductAttribute> productAttributes;
 
 }

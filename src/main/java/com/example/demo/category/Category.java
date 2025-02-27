@@ -27,7 +27,7 @@ public class Category {
     @JoinColumn(name="parent_category_id", nullable = false)
     private ParentCategory parentCategory;
 
-    @OneToMany(mappedBy = "mes_category" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<SubCategory> subCategories;
 
 }

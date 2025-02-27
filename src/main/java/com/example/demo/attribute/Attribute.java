@@ -22,7 +22,7 @@ public class Attribute {
 
     private String name;
 
-    @OneToMany(mappedBy = "mes_attribute",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "attribute",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<AttributeValue> attributeValues;
 
 

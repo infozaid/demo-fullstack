@@ -8,7 +8,6 @@ import java.util.Optional;
 @Transactional
 public interface ParentCategoryRepository extends JpaRepository<ParentCategory,Long> {
 
-    Optional<ParentCategory> findParentCategoryById(Long id);
     boolean existsParentCategoryByName(String name);
 
 

@@ -24,7 +24,7 @@ public class ParentCategory {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "mes_parent_category", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Category> categories;
 
     public ParentCategory(String name) {

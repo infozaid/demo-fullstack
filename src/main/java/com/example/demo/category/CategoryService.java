@@ -30,7 +30,7 @@ public class CategoryService {
             throw new DuplicateResourceException("Parent category already taken");
         }
 
-        if(parentCategoryRequest==null ||parentCategoryRequest.name()==null || parentCategoryRequest.name().isEmpty()){
+        if(parentCategoryRequest.name() == null || parentCategoryRequest.name().isEmpty()){
             throw new IllegalArgumentException("Parent Category Name can not be Null or Empty");
         }
 

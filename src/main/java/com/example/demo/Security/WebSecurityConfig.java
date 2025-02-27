@@ -73,8 +73,8 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ASYNC, DispatcherType.ERROR).permitAll()
-                        .requestMatchers( "/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/v1/users/**").permitAll() // ✅ Allow All Users Endpoints
+                        .requestMatchers( "/api/v1/auth/**","/api/v1/users/**").permitAll()
+                       // .requestMatchers(HttpMethod.POST,"/api/v1/users/**").permitAll()
                         .anyRequest().authenticated() // ✅ Require Authentication for Everything Else
                 )
                 .authenticationProvider(userAuthenticationProvider)
