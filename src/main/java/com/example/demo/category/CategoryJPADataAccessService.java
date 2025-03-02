@@ -10,9 +10,11 @@ import java.util.Optional;
 public class CategoryJPADataAccessService implements CategoryDao {
 
     private final ParentCategoryRepository parentCategoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryJPADataAccessService(ParentCategoryRepository parentCategoryRepository) {
+    public CategoryJPADataAccessService(ParentCategoryRepository parentCategoryRepository, CategoryRepository categoryRepository) {
         this.parentCategoryRepository = parentCategoryRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -26,12 +28,33 @@ public class CategoryJPADataAccessService implements CategoryDao {
     }
 
     @Override
-    public Optional<ParentCategory> finParentCategoryWithId(Long id) {
+    public Optional<ParentCategory> findParentCategoryWithId(Long id) {
         return parentCategoryRepository.findById(id);
     }
 
     @Override
     public boolean existsParentCategoryByName(String name) {
         return parentCategoryRepository.existsParentCategoryByName(name);
+    }
+
+
+    @Override
+    public void insertCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public boolean existsCategoryWithName(String name) {
+        return categoryRepository.existsCategoryByCategoryName(name);
+    }
+
+    @Override
+    public List<Category> getAllCategory() {
+        return categoryRepository.findAll();
+    }
+
+    @Override
+    public List<Category> getCategoryByParentCategoryId(Long parentId) {
+        return categoryRepository.findCategoryByParentCategoryId(parentId);
     }
 }

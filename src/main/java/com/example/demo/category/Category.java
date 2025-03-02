@@ -30,4 +30,7 @@ public class Category {
     @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<SubCategory> subCategories;
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

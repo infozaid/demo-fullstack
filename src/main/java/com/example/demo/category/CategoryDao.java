@@ -7,9 +7,12 @@ public interface CategoryDao {
 
     void insertParentCategory(ParentCategory parentCategory);
     List<ParentCategory> findAllParentCategory();
-    Optional<ParentCategory> finParentCategoryWithId(Long id);
+    Optional<ParentCategory> findParentCategoryWithId(Long id);
     boolean existsParentCategoryByName(String name);
+    List<Category> getCategoryByParentCategoryId(Long parentId);
 
-
+    void insertCategory(Category category);
+    boolean existsCategoryWithName(String name);
+    List<Category> getAllCategory();
 
 }

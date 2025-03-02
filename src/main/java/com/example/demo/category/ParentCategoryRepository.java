@@ -10,6 +10,4 @@ public interface ParentCategoryRepository extends JpaRepository<ParentCategory,L
 
     boolean existsParentCategoryByName(String name);
 
-
-
 }
