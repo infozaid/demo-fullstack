@@ -10,6 +10,8 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     boolean existsCategoryByCategoryName(String name);
 
-    @Query("select c from Category c left join fetch c.parentCategory where c.parentCategory.parentCategoryId=:parentCategoryId")
+    @Query("select c from Category c " +
+            "left join fetch c.parentCategory " +
+            "where c.parentCategory.parentCategoryId=:parentCategoryId")
     List<Category> findCategoryByParentCategoryId(@Param("parentCategoryId") Long id);
 }

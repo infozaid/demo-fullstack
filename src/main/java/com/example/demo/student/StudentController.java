@@ -2,6 +2,7 @@ package com.example.demo.student;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,13 @@ public class StudentController {
         return studentList;*/
 
         return studentService.getAllStudents();
+    }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    @GetMapping("topId")
+    public ResponseEntity<?> getTopStudentId(){
+       Student student= studentService.getTopStudent();
+       return ResponseEntity.ok(student.getId());
     }
 
     @PreAuthorize("hasAuthority('ROLE_USER')")

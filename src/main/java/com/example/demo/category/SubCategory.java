@@ -22,6 +22,7 @@ public class SubCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subCategoryId;
 
+
     @Column(nullable = false)
     private String name;
 
@@ -31,4 +32,8 @@ public class SubCategory {
 
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
+
+    public SubCategory(String name) {
+        this.name = name;
+    }
 }

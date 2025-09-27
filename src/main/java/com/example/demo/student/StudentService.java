@@ -1,11 +1,13 @@
 package com.example.demo.student;
 
 import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.exception.StudentNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +32,11 @@ public class StudentService {
         } else {
             studentRepository.save(student);
         }
+    }
+
+    public Student getTopStudent(){
+        return studentRepository.findTopByOrderByIdDesc()
+                .orElseThrow(()->new ResourceNotFoundException("Student id Found"));
     }
 
     public void deleteStudent(long studentId){
