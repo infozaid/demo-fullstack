@@ -1,5 +1,6 @@
 package com.example.demo.user;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.util.CustomEncoderPass;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,7 +26,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         UserDetails userDetails =  userDetailsService.loadUserByUsername(username);
         boolean isPasswordValid = customEncoderPass.matches(authentication.getCredentials().toString().trim(),userDetails.getPassword());
         if(!isPasswordValid){
-            throw new BadCredentialsException("Invalid Login Credentials");
+            throw new ResourceNotFoundException("Invalid Login Credentials");
         }
         return new UsernamePasswordAuthenticationToken(userDetails,userDetails.getPassword(), userDetails.getAuthorities());
     }

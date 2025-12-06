@@ -46,7 +46,7 @@ function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
 
 
   return (
-    <>
+    
       <Drawer
         title="Create new student"
         width={720}
@@ -126,7 +126,7 @@ function StudentDrawerForm({ showDrawer, setShowDrawer, fetchStudents }) {
           </Row>
         </Form>
       </Drawer>
-    </>
+  
   );
-};
+}
 export default StudentDrawerForm;

@@ -59,9 +59,11 @@ function AuthProvider({ children }) {
 
 
     const login = async (userNameAndPassword) => {
+        debugger;
         return new Promise((resolve, reject) => {
             performLogin(userNameAndPassword).then(res => {
-                const jwtToken = res.token;
+                debugger;
+                const jwtToken = res.data.token;
 
                 if (!jwtToken || jwtToken.split(".").length !== 3) {
                     console.error("Invalid JWT Token:", jwtToken);
@@ -76,7 +78,7 @@ function AuthProvider({ children }) {
                 };
                 localStorage.setItem('user', JSON.stringify(userData));
                 setUser(userData);
-                resolve(res);
+                resolve(res.data);
             }).catch(err => {
                 reject(err);
             })
